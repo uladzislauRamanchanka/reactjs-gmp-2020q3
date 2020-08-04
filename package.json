@@ -1,0 +1,32 @@
+{
+  "name": "reactjs-gmp-2020q3",
+  "version": "1.0.0",
+  "description": "Create Movies API",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development",
+    "prod": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uladzislauRamanchanka/reactjs-gmp-2020q3.git"
+  },
+  "keywords": [
+    "react",
+    "js",
+    "webpack",
+    "redux"
+  ],
+  "author": "Uladzislau Ramanchanka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uladzislauRamanchanka/reactjs-gmp-2020q3/issues"
+  },
+  "homepage": "https://github.com/uladzislauRamanchanka/reactjs-gmp-2020q3#readme",
+  "devDependencies": {
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.1.1"
+  }
+}
