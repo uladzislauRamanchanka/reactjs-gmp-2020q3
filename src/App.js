@@ -20,7 +20,6 @@ class PureComponent extends React.PureComponent {
   }
 }
 
-
 function App() {
   return (
     <div className="App">
