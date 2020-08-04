@@ -24,6 +24,24 @@ const optimization = () => {
     return config;
 }
 
+const cssLoaders = extra => {
+    const loaders = [
+            {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+                hrm: isDev,
+                reloadAll: true
+            },
+          } ,'css-loader'
+        ]
+        if (extra) {
+            loaders.push(extra);
+        }
+        return loaders;
+        
+}
+const fileName = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`;
+
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     entry: {
@@ -45,10 +63,23 @@ module.exports = {
       module: {
         rules: [
             {
+                test: /\.css$/,
+                use: cssLoaders()
+            },
+            {
                 test: /\.js|.jsx$/,
                 exclude: /node_modules/,
                 use: ["babel-loader"]
               },
+              {
+                test: /\.(png|jpg|svg|gif)$/,
+                use: ['file-loader']
+            }, 
+            {
+                test: /\.(ttf|woff|woff2|eot)$/,
+                use: ['file-loader']
+            },
+
         ]
       },
       plugins: [
@@ -58,6 +89,9 @@ module.exports = {
                 collapseWhitespace: isProd
             }
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename: fileName('css')
+        })
       ]
 }
