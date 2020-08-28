@@ -1,0 +1,13 @@
+.MainContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.HrLine {
+    border: 2px solid #555555;
+    margin-top: -12px;
+}
+
+.FilterForm {
+    padding: 20px;
+}

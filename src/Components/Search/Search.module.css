@@ -1,0 +1,17 @@
+.searchContainer {
+    width: 70%;
+    margin-right: 5px;
+}
+
+.inputSearch {
+    width:98%;
+    border-radius: 5px;
+    padding: 5px;
+    background-color:#424242;
+    border: #424242;
+    min-height: 38px;
+    font-size: 22px;
+    opacity: 0.8;
+    outline: none;
+}
+

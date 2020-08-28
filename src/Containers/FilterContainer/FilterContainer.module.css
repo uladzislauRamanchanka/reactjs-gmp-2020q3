@@ -1,0 +1,5 @@
+.FilterContainer {
+    display: flex;
+    color: #fff;
+    justify-content: space-evenly;
+}

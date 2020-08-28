@@ -1,34 +1,18 @@
 import React from 'react';
-
-const createElement = React.createElement(
-    'h1',
-    null,
-    'Hello World! (Created within React.createElement)'
-);
-
-const FunctionalComponent = () => <h1>Hello World! (Created within functional component)</h1>;
-
-class Component extends React.Component {
-  render() {
-      return <h1>Hello World! (Created within React.Component)</h1>
-  }
-}
-
-class PureComponent extends React.PureComponent {
-  render() {
-      return <h1>Hello World! (Created within React.PureComponent)</h1>
-  }
-}
+import HeaderMainContainer from './Containers/HeaderMainContainer/HeaderMainContainer'
+import MainContent from './Containers/MainContent/MainContent';
+import Footer from './Containers/Footer/Footer';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello World</h1>
-      {createElement}
-      <FunctionalComponent/>
-      <Component/>
-      <PureComponent/>
-    </div>
+    <>
+    <ErrorBoundary>
+    <HeaderMainContainer/>
+    <MainContent/>
+    <Footer/>
+    </ErrorBoundary>
+    </>
   );
 }
 

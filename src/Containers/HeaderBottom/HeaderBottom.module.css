@@ -1,0 +1,19 @@
+
+.headerBottom {
+    display:flex;
+    flex-direction: column;
+    padding-left: 80px;
+} 
+
+.formContainer {
+    display: flex;
+}
+
+.titleForm {
+    color: #fff;
+    margin-top: 40px;
+    font-family: sans-serif;
+}
+
+
+
