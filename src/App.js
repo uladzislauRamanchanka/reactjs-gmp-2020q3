@@ -8,9 +8,9 @@ function App() {
   return (
     <>
     <ErrorBoundary>
-    <HeaderMainContainer/>
-    <MainContent/>
-    <Footer/>
+      <HeaderMainContainer/>
+      <MainContent/>
+      <Footer/>
     </ErrorBoundary>
     </>
   );
