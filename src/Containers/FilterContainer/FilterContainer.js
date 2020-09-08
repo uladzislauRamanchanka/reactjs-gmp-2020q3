@@ -3,10 +3,8 @@ import classes from './FilterContainer.module.css'
 import FilterItem from '../../Components/FilterItem/FilterItem'
 
 
-class FilterContainer extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
+const FilterContainer = props => {
+        const genres = {
             filterItemNames : [
                 {name: 'ALL', active: true},
                 {name: 'DOCUMENTARY', active: false},
@@ -15,15 +13,11 @@ class FilterContainer extends Component {
                 {name: 'CRIME', active: false},
             ]
         }
-    }
-
-    render(){
         return (
             <div className={classes.FilterContainer}>
-                {this.state.filterItemNames.map((item, index) => <FilterItem name={item.name} key={index} isActive={item.active}/>)}
+                {genres.filterItemNames.map((item, index) => <FilterItem name={item.name} key={index} isActive={item.active}/>)}
             </div>
         )
-    }
 }
 
 export default FilterContainer
