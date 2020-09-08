@@ -16,12 +16,13 @@ const ImageContainer = props => {
         <div className={classes.ImageContainer}>
             {images.map(item => {
                 return (
-                    <ItemImage 
+                <ItemImage 
                 url={item.url} 
                 year={item.year} 
                 genre={item.genre} 
                 name={item.shortDescription}
                 key={item.id}
+                editItem={props.editItem}
                 />
                 )
                 

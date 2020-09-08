@@ -9,7 +9,7 @@ const MainContent = props => {
         <div className={classes.wrapper}>
             <FilterForm/>
             <CountContainer/>
-            <ImageContainer/>
+            <ImageContainer editItem={props.editItem}/>
         </div>
     )
 }

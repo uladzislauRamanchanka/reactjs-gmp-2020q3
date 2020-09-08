@@ -1,65 +1,56 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
+import React, { useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types';
 import { ModalOverlay, ModalWindow, ModalHeader, Cross, ModalBody, ModalFooter, FooterButton } from './style'
 
-class ModalWindowWrapper extends Component {
-    constructor(props) {
-        super(props);
+const ModalWindowWrapper = props => {
 
-        this.handleKeyUp = this.handleKeyUp.bind(this);
-    }
-
-      componentDidMount() {
-        window.addEventListener("keyup", this.handleKeyUp, false);
-      }
-
-      componentWillUnmount() {
-        window.removeEventListener("keyup", this.handleKeyUp, false);
-      }
-
-      handleKeyUp(e) {
-        const { onCloseRequest } = this.props;
-        const keys = {
-          27: () => {
-            e.preventDefault();
-            onCloseRequest();
-            window.removeEventListener("keyup", this.handleKeyUp, false);
-          }
-        };
-    
-        if (keys[e.keyCode]) {
-          keys[e.keyCode]();
+  const handleKeyUp = useCallback(
+    e => {
+      const keys = {
+        27: () => {
+          e.preventDefault();
+          props.onCloseRequest();
+          window.removeEventListener("keyup", handleKeyUp, false);
         }
-      }
-    
-    render() {
-        return (
-            <>
-                <ModalOverlay>
-                <ModalWindow>
-                    <ModalHeader>
-                        <Cross onClick={this.props.onCloseRequest}/>
-                    </ModalHeader>
-                    <ModalBody>
-                        {this.props.children}
-                    </ModalBody>
-                    <ModalFooter>
-                        {this.props.isEditButton ? (
-                        <>
-                        <FooterButton onClick={this.props.onCloseRequest}>Cancel</FooterButton>
-                        <FooterButton>Submit</FooterButton>
-                        </>
-                        ) : (<FooterButton onClick={this.props.onCloseRequest}>Confirm</FooterButton>)}
-                    </ModalFooter>
-                    </ModalWindow>
-                </ModalOverlay>
-            </>
-        )
-    }
-}
+      };
 
-    
+      if (keys[e.keyCode]) {
+        keys[e.keyCode]();
+      }
+    },
+    [props.onCloseRequest]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keyup", handleKeyUp, false);
+    return () => {
+      window.removeEventListener("keyup", handleKeyUp, false);
+    };
+  }, [handleKeyUp]);
+
+  return (
+                  <>
+                     <ModalOverlay>
+                     <ModalWindow>
+                         <ModalHeader>
+                             <Cross onClick={props.onCloseRequest}/>
+                        </ModalHeader>
+                         <ModalBody>
+                             {props.children}
+                         </ModalBody>
+                         <ModalFooter>
+                             {props.isEditButton ? (
+                            <>
+                            <FooterButton onClick={props.onCloseRequest}>Cancel</FooterButton>
+                            <FooterButton>Submit</FooterButton>
+                            </>
+                            ) : (<FooterButton onClick={props.onCloseRequest}>Confirm</FooterButton>)}
+                        </ModalFooter>
+                        </ModalWindow>
+                    </ModalOverlay>
+                </>
+  )
+}
 
 ModalWindowWrapper.propTypes = {
     onCloseRequest: PropTypes.func,

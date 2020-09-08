@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import classes from './ItemImage.module.css'
 import MovieButton from '../MovieButton/MovieButton'
 import ItemTitle from '../ItemTitle/ItemTitle'
@@ -7,91 +7,83 @@ import ItemGenre from '../ItemGenre/ItemGenre'
 import PropTypes from 'prop-types';
 import MovieButtonWindow from '../MovieButton/MovieButtonWindow/MovieButtonWindow'
 import ModalWindowWrapper from '../../ModalWindow/ModalWIndowWrapper/ModalWindowWrapper'
-import ButtonModalContent from '../AddMovieButton/ButtonModalContent/ButtonModalContent'
 import ItemWindowOnEdit from './ItemWindow/ItemWindowOnEdit'
 import ItemWindowOnDelete from './ItemWindow/ItemWindowOnDelete'
 
-class ItemImage extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            showModel: false,
-            showModelWindowWrapper: false,
-            onEdit: false,
-            onDelete: false
-        }
-    }
-    handleClickCLose() {
-        this.setState({
-            showModel: !this.state.showModel
-        })
-    }
+function useLogger(value) {
+    useEffect(() => {
+        console.log(`Value to log ${value}`)
+    }, [value])
+}
 
-    openWrapperEdit() {
-        this.setState({
-            showModelWindowWrapper: !this.state.showModelWindowWrapper,
-            onEdit: !this.state.onEdit
-        })
-        if (this.state.showModelWindowWrapper) {
-            this.setState({
-                showModel: false,
-                onEdit: false
-            })
-        }
+const ItemImage = props => {
+    const [showModel, setShowModel] = useState(false);
+    const [showModelWindowWrapper, setShowModelWindowWrapper] = useState(false);
+    const [onEdit, setOnEdit] = useState(false);
+    const [onDelete, setOnDelete] = useState(false);
+
+function handleClickCLose() {
+        setShowModel(!showModel)
+}
+
+function openWrapperEdit() {
+    setShowModelWindowWrapper(!showModelWindowWrapper);
+    setOnEdit(!onEdit);
+
+    if (showModelWindowWrapper) {
+        setShowModel(false);
+        setOnEdit(false);
     }
+}
 
-    openWrapperDelete() {
-        this.setState({
-            showModelWindowWrapper: !this.state.showModelWindowWrapper,
-            onDelete: !this.state.onDelete
-        })
-        if (this.state.showModelWindowWrapper) {
-            this.setState({
-                showModel: false,
-                onDelete: false
-            })
-        }
+function openWrapperDelete() {
+    setShowModelWindowWrapper(!showModelWindowWrapper);
+    setOnDelete(!onDelete);
+
+    if (showModelWindowWrapper) {
+        setShowModel(false);
+        setOnDelete(false);
     }
+     }
 
-    render() {
-        return (
-            <div className={classes.ItemWrapper}>
-                <div className={classes.ImageWrapper}>
-                    <img src={this.props.url} className={classes.ItemImage}/>
-                    <MovieButton CloseWindow={this.handleClickCLose.bind(this)}/>
-                    {this.state.showModel && 
-                    <MovieButtonWindow 
-                    CloseWindow={this.handleClickCLose.bind(this)}
-                    EditWindow={this.openWrapperEdit.bind(this)}
-                    DeleteWindow={this.openWrapperDelete.bind(this)}
-                    />}
-                <div className={classes.HeaderDescription}>
-                    <ItemTitle name={this.props.name}/>
-                    <ItemReleaseDate year={this.props.year}/>
-                </div>
-                <ItemGenre genre={this.props.genre}/>
-            </div>
-                        {this.state.showModelWindowWrapper && this.state.onEdit &&
-                        <ModalWindowWrapper
-                        isEditButton
-                        onCloseRequest={this.openWrapperEdit.bind(this)}
-                        children={<ItemWindowOnEdit 
-                        title='EDIT MOVIE'
-                        />
-                    }
-                        />}
-
-                        {this.state.showModelWindowWrapper && this.state.onDelete &&
-                        <ModalWindowWrapper
-                        onCloseRequest={this.openWrapperDelete.bind(this)}
-                        children={<ItemWindowOnDelete
-                        title='DELETE MOVIE'
-                        />}
-                        />}
+     return (
+        <div className={classes.ItemWrapper}>
+        <div className={classes.ImageWrapper}>
+            <img src={props.url} className={classes.ItemImage} onClick={props.editItem}/>
+            <MovieButton CloseWindow={handleClickCLose}/>
+            {showModel && 
+            <MovieButtonWindow 
+            CloseWindow={handleClickCLose}
+            EditWindow={openWrapperEdit}
+            DeleteWindow={openWrapperDelete}
+            />}
+        <div className={classes.HeaderDescription}>
+            <ItemTitle name={props.name}/>
+            <ItemReleaseDate year={props.year}/>
         </div>
-        )
-    }
-} 
+        <ItemGenre genre={props.genre}/>
+    </div>
+                {showModelWindowWrapper && onEdit &&
+                <ModalWindowWrapper
+                isEditButton
+                onCloseRequest={openWrapperEdit}
+                children={<ItemWindowOnEdit 
+                title='EDIT MOVIE'
+                />
+            }
+                />}
+
+                {showModelWindowWrapper && onDelete &&
+                <ModalWindowWrapper
+                onCloseRequest={openWrapperDelete}
+                children={<ItemWindowOnDelete
+                title='DELETE MOVIE'
+                />}
+                />}
+            </div>
+     )
+
+}
 
 ItemImage.propTypes = {
     url: PropTypes.string.isRequired,
