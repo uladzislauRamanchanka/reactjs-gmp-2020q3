@@ -11,7 +11,6 @@ const FilterItem = props => {
             <hr className={props.isActive ? classes.dividerRed : classes.divider}/>
         </div>
     )
-       
 }
 
 FilterItem.propTypes = {

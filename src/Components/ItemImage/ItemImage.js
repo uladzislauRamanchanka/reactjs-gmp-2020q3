@@ -45,11 +45,10 @@ function openWrapperDelete() {
         setOnDelete(false);
     }
      }
-
      return (
         <div className={classes.ItemWrapper}>
         <div className={classes.ImageWrapper}>
-            <img src={props.url} className={classes.ItemImage} onClick={props.editItem}/>
+            <img src={props.movie.poster_path} className={classes.ItemImage} onClick={props.editItem}/>
             <MovieButton CloseWindow={handleClickCLose}/>
             {showModel && 
             <MovieButtonWindow 
@@ -58,10 +57,10 @@ function openWrapperDelete() {
             DeleteWindow={openWrapperDelete}
             />}
         <div className={classes.HeaderDescription}>
-            <ItemTitle name={props.name}/>
-            <ItemReleaseDate year={props.year}/>
+            <ItemTitle name={props.movie.title}/>
+            <ItemReleaseDate year={props.movie.release_date.slice(0,4)}/>
         </div>
-        <ItemGenre genre={props.genre}/>
+        <ItemGenre genre={props.movie.genres.join(', ')}/>
     </div>
                 {showModelWindowWrapper && onEdit &&
                 <ModalWindowWrapper
@@ -69,15 +68,19 @@ function openWrapperDelete() {
                 onCloseRequest={openWrapperEdit}
                 children={<ItemWindowOnEdit 
                 title='EDIT MOVIE'
+                movie={props.movie}
+                onCloseRequest={openWrapperEdit}
                 />
             }
                 />}
 
                 {showModelWindowWrapper && onDelete &&
                 <ModalWindowWrapper
-                onCloseRequest={openWrapperDelete}
+                onCloseRequest={openWrapperEdit}
                 children={<ItemWindowOnDelete
                 title='DELETE MOVIE'
+                onCloseRequest={openWrapperDelete}
+                movie={props.movie}
                 />}
                 />}
             </div>
@@ -86,10 +89,7 @@ function openWrapperDelete() {
 }
 
 ItemImage.propTypes = {
-    url: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    genre: PropTypes.string.isRequired,
+    movie: PropTypes.object.isRequired,
 }
 
 export default ItemImage

@@ -17,8 +17,9 @@ const [showModal, setShowModal] = useState(false)
                 {showModal && 
                 <ModalWindowWrapper 
                 onCloseRequest={() => setShowModal(false)}
-                children={<ButtonModalContent title='ADD MOVIE'/>}
+                children={<ButtonModalContent title='ADD MOVIE' onCloseRequest={() => setShowModal(false)}/>}
                 isEditButton
+                
                 />
                 }
             </div>

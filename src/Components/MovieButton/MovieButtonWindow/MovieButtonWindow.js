@@ -12,6 +12,7 @@ const Wrapper = styled.div`
     border-radius: 5px;
     right: 5px;
     top: 5px;
+    z-index: 1;
     &:hover {
 }
 ` 

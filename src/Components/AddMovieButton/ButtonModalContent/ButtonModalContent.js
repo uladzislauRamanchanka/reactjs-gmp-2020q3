@@ -1,5 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import { genres }  from '../../../constants/const'
+import Selector from '../../../Selector/Selector'
+import { useDispatch } from 'react-redux'
+import { createMovie } from '../../../store/movieActions/actions'
 
 const TitleWindow = styled.span`
     font-size: 30px;
@@ -24,24 +28,69 @@ const InputWindow = styled.input`
     min-height: 35px;
 `
 
+const ModalFooter = styled.div`
+    padding: 20px;
+    display: flex;
+    margin: 10px;
+    justify-content: flex-end;
+`
+
+const FooterButton = styled.div`
+    background-color: #F65261;
+    border-radius: 2px;
+    padding: 10px 55px;
+    margin-right: 10px;
+    cursor: pointer;
+`
+
 const InputDate = styled(InputWindow).attrs({
     type: 'date'
 })``
 
 const ButtonModalContent = props => {
+    
+    const [inputData, setInputData] = useState({
+        tagline: 'Example',
+        vote_average: 0,
+        vote_count: 1,
+        release_date: '',
+        poster_path: '',
+        overview: 'Long Story',
+        budget: 5555,
+        revenue: 5555,
+        genres: [],
+        runtime: 100,
+        title: 'Movie',
+    });
+    const dispatch = useDispatch()
+
+    const handleChange = event => setInputData({...inputData, genres: Array.from(event.target.selectedOptions).map(option => option.value)})
+    
     return (
         <>
         <TitleWindow>{props.title}</TitleWindow>
         <TitleInput>TITLE</TitleInput>
-        <InputWindow></InputWindow>
+        <InputWindow onChange={event => setInputData({...inputData, title: event.target.value})}></InputWindow>
         <TitleInput>RELEASE DATE</TitleInput>
-        <InputDate></InputDate>
+        <InputDate onChange={event => setInputData({...inputData, release_date: event.target.value})}></InputDate>
         <TitleInput>MOVIE URL</TitleInput>
-        <InputWindow></InputWindow>
+        <InputWindow onChange={event => setInputData({...inputData, poster_path: event.target.value})}></InputWindow>
+        <TitleInput>GENRE</TitleInput>
+        <Selector values={genres} onChange={handleChange}></Selector>
         <TitleInput>OVERVIEW</TitleInput>
-        <InputWindow></InputWindow>
+        <InputWindow onChange={event => setInputData({...inputData, overview: event.target.value})}></InputWindow>
         <TitleInput>RUNTIME</TitleInput>
-        <InputWindow></InputWindow>
+        <InputWindow onChange={event => setInputData({...inputData, runtime: +event.target.value})}></InputWindow>
+        <ModalFooter>
+            <FooterButton onClick={props.onCloseRequest}>RESET</FooterButton>
+            <FooterButton onClick={() => {
+                const closeWindow = props.onCloseRequest
+                dispatch(createMovie(inputData))
+                closeWindow()
+            }} >SUBMIT</FooterButton>
+        </ModalFooter>
+
+        
         </>
     )
 }

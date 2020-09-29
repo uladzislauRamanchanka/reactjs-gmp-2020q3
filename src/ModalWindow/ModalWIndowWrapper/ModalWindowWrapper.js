@@ -38,14 +38,14 @@ const ModalWindowWrapper = props => {
                          <ModalBody>
                              {props.children}
                          </ModalBody>
-                         <ModalFooter>
+                         {/* <ModalFooter>
                              {props.isEditButton ? (
                             <>
                             <FooterButton onClick={props.onCloseRequest}>Cancel</FooterButton>
                             <FooterButton>Submit</FooterButton>
                             </>
                             ) : (<FooterButton onClick={props.onCloseRequest}>Confirm</FooterButton>)}
-                        </ModalFooter>
+                        </ModalFooter> */}
                         </ModalWindow>
                     </ModalOverlay>
                 </>
