@@ -1,7 +1,7 @@
 import * as actions from './actionTypes'
 import axios from 'axios'
 
-const url = 'http://localhost:4000/movies?limit=9';
+const url = 'http://localhost:4000/movies';
 
 export const moviesFetching = () => {
     return {
@@ -46,7 +46,7 @@ export const createMovieAction = movie => {
 export const fetchMovies = () => async (dispatch) => {
     try {
         dispatch(moviesFetching());
-        const { data } = await axios.get(url)
+        const { data } = await axios.get(`${url}?limit=9`)
         dispatch(moviesFetchedSuccess(data))
     }
     catch(error) {
