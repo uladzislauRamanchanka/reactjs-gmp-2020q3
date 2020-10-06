@@ -1,17 +1,22 @@
-import React, { useEffect, useCallback } from 'react'
-import PropTypes from 'prop-types';
-import { ModalOverlay, ModalWindow, ModalHeader, Cross, ModalBody, ModalFooter, FooterButton } from './style'
+import React, { useEffect, useCallback } from "react";
+import PropTypes from "prop-types";
+import {
+  ModalOverlay,
+  ModalWindow,
+  ModalHeader,
+  Cross,
+  ModalBody,
+} from "./style";
 
-const ModalWindowWrapper = props => {
-
+const ModalWindowWrapper = (props) => {
   const handleKeyUp = useCallback(
-    e => {
+    (e) => {
       const keys = {
         27: () => {
           e.preventDefault();
           props.onCloseRequest();
           window.removeEventListener("keyup", handleKeyUp, false);
-        }
+        },
       };
 
       if (keys[e.keyCode]) {
@@ -29,38 +34,28 @@ const ModalWindowWrapper = props => {
   }, [handleKeyUp]);
 
   return (
-                  <>
-                     <ModalOverlay>
-                     <ModalWindow>
-                         <ModalHeader>
-                             <Cross onClick={props.onCloseRequest}/>
-                        </ModalHeader>
-                         <ModalBody>
-                             {props.children}
-                         </ModalBody>
-                         {/* <ModalFooter>
-                             {props.isEditButton ? (
-                            <>
-                            <FooterButton onClick={props.onCloseRequest}>Cancel</FooterButton>
-                            <FooterButton>Submit</FooterButton>
-                            </>
-                            ) : (<FooterButton onClick={props.onCloseRequest}>Confirm</FooterButton>)}
-                        </ModalFooter> */}
-                        </ModalWindow>
-                    </ModalOverlay>
-                </>
-  )
-}
+    <>
+      <ModalOverlay>
+        <ModalWindow>
+          <ModalHeader>
+            <Cross onClick={props.onCloseRequest} />
+          </ModalHeader>
+          <ModalBody>{props.children}</ModalBody>
+        </ModalWindow>
+      </ModalOverlay>
+    </>
+  );
+};
 
 ModalWindowWrapper.propTypes = {
-    onCloseRequest: PropTypes.func,
-    children:PropTypes.element
-}
+  onCloseRequest: PropTypes.func,
+  children: PropTypes.element,
+};
 
 ModalWindowWrapper.defaultProps = {
-    title: 'Modal title',
-    onCloseRequest: () => {},
-    onSubmit: () => {},
-}
+  title: "Modal title",
+  onCloseRequest: () => {},
+  onSubmit: () => {},
+};
 
 export default ModalWindowWrapper;

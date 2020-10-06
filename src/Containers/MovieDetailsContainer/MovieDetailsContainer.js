@@ -1,18 +1,18 @@
-import React from 'react'
-import styled from 'styled-components'
-import HeaderUp from '../HeaderUp/HeaderUp'
-import MovieDetailsContent from '../../Components/MovieDetailsContent/MovieDetailsContent'
+import React from "react";
+import styled from "styled-components";
+import HeaderUp from "../HeaderUp/HeaderUp";
+import MovieDetailsContent from "../../Components/MovieDetailsContent/MovieDetailsContent";
 
 const Container = styled.div`
-background-color: black;
-`
-const MovieDetailsContainer = props => {
-    return (
-        <Container tabindex="-1">
-            <HeaderUp returnButton returnBack={props.returnBack}></HeaderUp>
-            <MovieDetailsContent></MovieDetailsContent>
-        </Container>
-    )
-}
+  background-color: black;
+`;
+const MovieDetailsContainer = (props) => {
+  return (
+    <Container tabindex="-1">
+      <HeaderUp returnButton returnBack={props.returnBack}></HeaderUp>
+      <MovieDetailsContent></MovieDetailsContent>
+    </Container>
+  );
+};
 
-export default MovieDetailsContainer
+export default MovieDetailsContainer;

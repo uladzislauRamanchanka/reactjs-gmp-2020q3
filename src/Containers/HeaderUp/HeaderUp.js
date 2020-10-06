@@ -1,16 +1,20 @@
-import React from 'react'
-import classes from './HeaderUp.module.css'
-import NetflixRoulette from '../../Components/NetflixRoulette/NetflixRoulette'
-import AddMovieButton from '../../Components/AddMovieButton/AddMovieButton'
-import ReturnButton from '../../Components/ReturnButton/ReturnButton'
+import React from "react";
+import classes from "./HeaderUp.module.css";
+import NetflixRoulette from "../../Components/NetflixRoulette/NetflixRoulette";
+import AddMovieButton from "../../Components/AddMovieButton/AddMovieButton";
+import ReturnButton from "../../Components/ReturnButton/ReturnButton";
 
-const HeaderUp = props => {
-    return (
-        <div className={classes.headerUp}>
-            <NetflixRoulette/>
-            {props.returnButton ? (<ReturnButton returnBack={props.returnBack}/>) : (<AddMovieButton/>)}
-        </div>
-    )
-}
+const HeaderUp = (props) => {
+  return (
+    <div className={classes.headerUp}>
+      <NetflixRoulette />
+      {props.returnButton ? (
+        <ReturnButton returnBack={props.returnBack} />
+      ) : (
+        <AddMovieButton />
+      )}
+    </div>
+  );
+};
 
-export default HeaderUp
+export default HeaderUp;

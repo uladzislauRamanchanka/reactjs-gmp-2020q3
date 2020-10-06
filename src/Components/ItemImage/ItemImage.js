@@ -23,14 +23,12 @@ const ItemImage = (props) => {
   const [onDelete, setOnDelete] = useState(false);
 
   //TODO: rewrite the open/close functionality
-  const toggleModal = type => {
-    if (type === 'edit') setOnEdit(!onEdit);
-    if (type === 'delete') setOnDelete(!onDelete);
-    setShowModelWindowWrapper(!showModelWindowWrapper)
-    if(showModel)
-    setShowModel(!showModel)
-    
-  }
+  const toggleModal = (type) => {
+    if (type === "edit") setOnEdit(!onEdit);
+    if (type === "delete") setOnDelete(!onDelete);
+    setShowModelWindowWrapper(!showModelWindowWrapper);
+    if (showModel) setShowModel(!showModel);
+  };
 
   function handleClickCLose() {
     setShowModel(!showModel);
@@ -47,8 +45,8 @@ const ItemImage = (props) => {
         {showModel && (
           <MovieButtonWindow
             CloseWindow={handleClickCLose}
-            EditWindow={() => toggleModal('edit')}
-            DeleteWindow={() => toggleModal('delete')}
+            EditWindow={() => toggleModal("edit")}
+            DeleteWindow={() => toggleModal("delete")}
           />
         )}
         <div className={classes.HeaderDescription}>
@@ -60,12 +58,12 @@ const ItemImage = (props) => {
       {showModelWindowWrapper && onEdit && (
         <ModalWindowWrapper
           isEditButton
-          onCloseRequest={() => toggleModal('edit')}
+          onCloseRequest={() => toggleModal("edit")}
           children={
             <ItemWindowOnEdit
               title="EDIT MOVIE"
               movie={props.movie}
-              onCloseRequest={() => toggleModal('edit')}
+              onCloseRequest={() => toggleModal("edit")}
             />
           }
         />
@@ -73,11 +71,11 @@ const ItemImage = (props) => {
 
       {showModelWindowWrapper && onDelete && (
         <ModalWindowWrapper
-          onCloseRequest={() => toggleModal('delete')}
+          onCloseRequest={() => toggleModal("delete")}
           children={
             <ItemWindowOnDelete
               title="DELETE MOVIE"
-              onCloseRequest={() => toggleModal('delete')}
+              onCloseRequest={() => toggleModal("delete")}
               movie={props.movie}
             />
           }

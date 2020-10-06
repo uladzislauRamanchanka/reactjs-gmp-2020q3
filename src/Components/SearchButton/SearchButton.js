@@ -1,6 +1,8 @@
-import React from 'react'
-import classes from './SearchButton.module.css'
+import React from "react";
+import classes from "./SearchButton.module.css";
 
-const SearchButton = props => <div className={classes.SearchButton}>Search</div>
+const SearchButton = (props) => (
+  <div className={classes.SearchButton}>Search</div>
+);
 
-export default SearchButton
+export default SearchButton;
