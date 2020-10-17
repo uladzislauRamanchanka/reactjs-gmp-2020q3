@@ -15,9 +15,15 @@ const Select = styled.select`
 
 function Selector(props) {
   return (
-    <Select onChange={props.onChange} onBlur={props.onBlur} multiple id={props.id} name={props.name}>
+    <Select
+      onChange={props.onChange}
+      onBlur={props.onBlur}
+      multiple={props.multiple}
+      id={props.id}
+      name={props.name}
+    >
       {props.values.map((item, index) => (
-        <option key={index} value={item.key}>
+        <option key={index} value={item.value}>
           {item.value}
         </option>
       ))}

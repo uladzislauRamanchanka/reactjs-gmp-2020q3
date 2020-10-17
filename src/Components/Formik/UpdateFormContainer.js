@@ -10,7 +10,7 @@ import { updateMovie } from "../../store/movieActions/actions";
 function UpdateFormContainer(props) {
   const { movieValues, cancelEvent } = props;
   const initialValues = {
-    tagline: movieValues.tagline,
+    tagline: movieValues.tagline || "Empty tagline",
     vote_average: movieValues.vote_average,
     vote_count: movieValues.vote_count,
     release_date: movieValues.release_date,
@@ -19,7 +19,7 @@ function UpdateFormContainer(props) {
     budget: movieValues.budget,
     revenue: movieValues.revenue,
     genres: movieValues.genres,
-    runtime: +movieValues.runtime,
+    runtime: +movieValues.runtime || 0,
     title: movieValues.title,
     id: movieValues.id,
   };

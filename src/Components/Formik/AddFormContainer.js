@@ -111,6 +111,7 @@ function AddFormContainer(props) {
             values={genres}
             name="genres"
             id="genres"
+            multiple
           />
           {formik.touched.genres && formik.errors.genres ? (
             <span className={classes.error}>{formik.errors.genres}</span>

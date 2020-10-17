@@ -1,11 +1,19 @@
 import * as actions from "./actionTypes";
 import axios from "axios";
+import { formLink } from "../utils";
 
 const url = "http://localhost:4000/movies";
 
 export const moviesFetching = () => {
   return {
     type: actions.FETCH_MOVIE_REQUEST,
+  };
+};
+
+export const setMovieDescription = (movie) => {
+  return {
+    type: actions.MOVIE_DESCRIPTION,
+    payload: movie,
   };
 };
 
@@ -43,40 +51,128 @@ export const createMovieAction = (movie) => {
     payload: movie,
   };
 };
-export const fetchMovies = () => async (dispatch) => {
+
+export const setActiveGenre = (genre) => {
+  return {
+    type: actions.MOVIE_GENRE,
+    payload: genre,
+  };
+};
+
+export const setSortBy = (sortBy) => {
+  return {
+    type: actions.MOVIE_SORT_BY,
+    payload: sortBy,
+  };
+};
+
+export const setAscDesc = (ascDescValue) => {
+  return {
+    type: actions.MOVIE_ASC_DESC,
+    payload: ascDescValue,
+  };
+};
+
+export const setTitle = (titleQuery) => {
+  return {
+    type: actions.MOVIE_SEARCH_BY_TITLE,
+    payload: titleQuery,
+  };
+};
+
+export const fetchMovies = (searchParams) => async (dispatch) => {
   try {
+    const params = formLink(searchParams);
+    const fullUrl = `${url}${params}`;
     dispatch(moviesFetching());
-    const { data } = await axios.get(`${url}?limit=9`);
+    const { data } = await axios.get(`${fullUrl}`);
     dispatch(moviesFetchedSuccess(data));
   } catch (error) {
     dispatch(moviesFetchedError(error.message));
   }
 };
 
-export const updateMovie = (movie) => async (dispatch) => {
+export const updateMovie = (movie) => async (dispatch, getState) => {
   try {
     await axios.put(url, movie);
     dispatch(updateMovieAction(movie));
+    const {
+      movie: { searchParams },
+    } = getState();
+    dispatch(fetchMovies(searchParams));
   } catch (error) {
     dispatch(moviesFetchedError(error.message));
   }
 };
 
-export const deleteMovie = (movie) => async (dispatch) => {
+export const deleteMovie = (movieToDelete) => async (dispatch, getState) => {
   try {
-    await axios.delete(`${url}/${movie.id}`);
-    dispatch(deleteMovieAction(movie));
-    dispatch(fetchMovies());
+    const {
+      movie: { searchParams },
+    } = getState();
+    await axios.delete(`${url}/${movieToDelete.id}`);
+    dispatch(deleteMovieAction(movieToDelete));
+    dispatch(fetchMovies(searchParams));
   } catch (error) {
     dispatch(moviesFetchedError(error.message));
   }
 };
 
-export const createMovie = (movie) => async (dispatch) => {
+export const createMovie = (movie) => async (dispatch, getState) => {
   try {
+    const {
+      movie: { searchParams },
+    } = getState();
     await axios.post(url, movie);
     dispatch(createMovieAction(movie));
-    dispatch(fetchMovies());
+    dispatch(fetchMovies(searchParams));
+  } catch (error) {}
+};
+
+// this part is gonna be refactored in one function
+export const filterByGenre = (genre) => async (dispatch, getState) => {
+  try {
+    dispatch(setActiveGenre(genre));
+    const {
+      movie: { searchParams },
+    } = getState();
+    dispatch(fetchMovies(searchParams));
+  } catch (error) {
+    dispatch(moviesFetchedError(error.message));
+  }
+};
+
+export const sortByValue = (sortBy) => async (dispatch, getState) => {
+  try {
+    dispatch(setSortBy(sortBy));
+    const {
+      movie: { searchParams },
+    } = getState();
+    dispatch(fetchMovies(searchParams));
+  } catch (error) {
+    dispatch(moviesFetchedError(error.message));
+  }
+};
+
+export const sortByOrder = (orderValue) => async (dispatch, getState) => {
+  try {
+    dispatch(setAscDesc(orderValue));
+    const {
+      movie: { searchParams },
+    } = getState();
+    dispatch(fetchMovies(searchParams));
+  } catch (error) {
+    dispatch(moviesFetchedError(error.message));
+  }
+};
+
+export const searchByTitle = (titleQuery) => async (dispatch, getState) => {
+  try {
+    dispatch(setTitle(titleQuery));
+    const {
+      movie: { searchParams },
+    } = getState();
+    dispatch(fetchMovies(searchParams));
   } catch (error) {
     dispatch(moviesFetchedError(error.message));
   }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import HeaderMainContainer from "./Containers/HeaderMainContainer/HeaderMainContainer";
 import MainContent from "./Containers/MainContent/MainContent";
 import Footer from "./Containers/Footer/Footer";
@@ -7,14 +7,8 @@ import MovieDetailsContainer from "./Containers/MovieDetailsContainer/MovieDetai
 import { Provider } from "react-redux";
 import store from "./store";
 
-
 function App() {
   const [editItem, setEditItem] = useState(false);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [editItem]);
-
   return (
     <>
       <ErrorBoundary>
@@ -32,4 +26,4 @@ function App() {
   );
 }
 
-export default App;
+export default React.memo(App);

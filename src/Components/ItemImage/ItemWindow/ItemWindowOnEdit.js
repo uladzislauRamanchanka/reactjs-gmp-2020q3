@@ -12,10 +12,7 @@ const ItemWindowOnEdit = ({ title, movie, onCloseRequest }) => {
   return (
     <>
       <TitleWindow>{title}</TitleWindow>
-      <UpdateFormContainer
-        movieValues={movie}
-        cancelEvent={onCloseRequest}
-      />
+      <UpdateFormContainer movieValues={movie} cancelEvent={onCloseRequest} />
     </>
   );
 };

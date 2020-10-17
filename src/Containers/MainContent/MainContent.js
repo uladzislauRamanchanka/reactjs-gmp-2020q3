@@ -13,4 +13,4 @@ const MainContent = (props) => {
     </div>
   );
 };
-export default MainContent;
+export default React.memo(MainContent);

@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./HeaderBottom.module.css";
 import Search from "../../Components/Search/Search";
-import SearchButton from "../../Components/SearchButton/SearchButton";
 
 const HeaderBottom = (props) => {
   return (
@@ -9,9 +8,8 @@ const HeaderBottom = (props) => {
       <div className={classes.titleForm}>
         <h1>FIND YOUR MOVIE</h1>
       </div>
-      <div className={classes.formContainer}>
+      <div>
         <Search />
-        <SearchButton />
       </div>
     </div>
   );

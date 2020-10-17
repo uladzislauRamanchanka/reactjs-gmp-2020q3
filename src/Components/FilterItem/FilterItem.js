@@ -3,19 +3,20 @@ import classes from "./FilterItem.module.css";
 import PropTypes from "prop-types";
 
 const FilterItem = (props) => {
+  const { isActive, setActive } = props;
+  const style = [classes.Link];
+  if (isActive) style.push(classes.Active);
+
   return (
-    <div className={classes.FilterItem}>
-      <a href="#" className={classes.Link}>
-        {props.name}
-      </a>
-      <hr className={props.isActive ? classes.dividerRed : classes.divider} />
+    <div className={style.join(" ")} onClick={setActive}>
+      {props.name}
     </div>
   );
 };
 
 FilterItem.propTypes = {
   name: PropTypes.string.isRequired,
-  isActive: PropTypes.bool.isRequired,
+  isActive: PropTypes.string.isRequired,
 };
 
 export default FilterItem;

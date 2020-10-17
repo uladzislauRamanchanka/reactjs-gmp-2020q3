@@ -1,10 +1,9 @@
 .searchContainer {
-    width: 70%;
-    margin-right: 5px;
+    display: flex;
 }
 
 .inputSearch {
-    width:98%;
+    width: 500px;
     border-radius: 5px;
     padding: 5px;
     background-color:#424242;
@@ -13,5 +12,15 @@
     font-size: 22px;
     opacity: 0.8;
     outline: none;
+    margin-right: 10px;
 }
 
+
+.SearchButton {
+    color: #fff;
+    background-color: #F65261;
+    padding: 10px 50px;
+    font-size: 22px;
+    border-radius: 5px;
+    cursor: pointer;
+  }

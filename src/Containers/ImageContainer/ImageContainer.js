@@ -3,12 +3,14 @@ import classes from "./ImageContainer.module.css";
 import ItemImage from "../../Components/ItemImage/ItemImage";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchMovies } from "../../store/movieActions/actions";
+import { selectSearchParams } from '../../store/movieActions/selector'
 
 const ImageContainer = (props) => {
   const dispatch = useDispatch();
+  const queryParams = useSelector(selectSearchParams);
 
   useEffect(() => {
-    dispatch(fetchMovies());
+    dispatch(fetchMovies(queryParams));
   }, []);
   const movies = useSelector((state) => state.movie.data);
   return (
@@ -22,4 +24,4 @@ const ImageContainer = (props) => {
   );
 };
 
-export default ImageContainer;
+export default React.memo(ImageContainer);

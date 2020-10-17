@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import emptyImage from "../../images/no-image.png";
 
 const Wrapper = styled.div`
   display: flex;
@@ -52,36 +54,30 @@ const Description = styled.div`
   margin: 10px 0;
 `;
 const MovieDetailsContent = (props) => {
-  const images = [
-    {
-      id: 1,
-      url:
-        "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/9d8e73e436b536a7c81644c6e9877c7a_1c9d0f90-9991-4326-8f37-3dd980abeacf_480x.progressive.jpg?v=1573590262",
-      name: "Pulp Fiction",
-      year: 2018,
-      genre: "Drama, Biography, Music",
-      filmDuration: 154,
-      rating: 4.3,
-      shortDesctiption: "Oscar Winning Movie",
-      description:
-        "Pulp Fiction is a 1994 American neo-noir black comedy crime film written and directed by Quentin Tarantino, who conceived it with Roger Avary.[4] Starring John Travolta, Samuel L. Jackson, Bruce Willis, Tim Roth, Ving Rhames, and Uma Thurman, it tells several stories of criminal Los Angeles. The title refers to the pulp magazines and hardboiled crime novels popular during the mid-20th century, known for their graphic violence and punchy dialogue.",
-    },
-  ];
-
+  const movie = useSelector((state) => state.movie.currentMovieDescription);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [movie]);
   return (
     <Wrapper>
-      <Image src={images[0].url}></Image>
+      <Image
+        src={movie.poster_path || emptyImage}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = emptyImage;
+        }}
+      ></Image>
       <WrapperContent>
         <NameWrapper>
-          {images[0].name}
-          <Rating>{images[0].rating}</Rating>
+          {movie.title}
+          <Rating>{movie.vote_average}</Rating>
         </NameWrapper>
-        <ShortDescription>{images[0].shortDesctiption}</ShortDescription>
+        <ShortDescription>{movie.tagline || "Empty tagline"}</ShortDescription>
         <DurationReleaseWrapper>
-          <div>{images[0].year}</div>
-          <div>{images[0].filmDuration} min</div>
+          <div>{movie.release_date.slice(0, 4)}</div>
+          <div>{movie.runtime || 0} min</div>
         </DurationReleaseWrapper>
-        <Description>{images[0].description}</Description>
+        <Description>{movie.overview}</Description>
       </WrapperContent>
     </Wrapper>
   );

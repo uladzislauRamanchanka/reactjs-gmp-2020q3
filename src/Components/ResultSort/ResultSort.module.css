@@ -3,17 +3,14 @@
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
-  transform: rotate(45deg);
+}
+
+.arrowWrap {
+  padding-top: 2px;
 }
 
 .Sort {
-    padding-right: 20px;
     font-size: 20px;
-    color: #fff;
-}
-.Release {
-    font-size: 20px;
-    padding-right: 10px;
     color: #fff;
 }
 

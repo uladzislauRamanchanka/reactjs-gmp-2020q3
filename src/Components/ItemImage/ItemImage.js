@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import classes from "./ItemImage.module.css";
 import MovieButton from "../MovieButton/MovieButton";
 import ItemTitle from "../ItemTitle/ItemTitle";
@@ -9,18 +9,17 @@ import MovieButtonWindow from "../MovieButton/MovieButtonWindow/MovieButtonWindo
 import ModalWindowWrapper from "../../ModalWindow/ModalWIndowWrapper/ModalWindowWrapper";
 import ItemWindowOnEdit from "./ItemWindow/ItemWindowOnEdit";
 import ItemWindowOnDelete from "./ItemWindow/ItemWindowOnDelete";
-
-function useLogger(value) {
-  useEffect(() => {
-    console.log(`Value to log ${value}`);
-  }, [value]);
-}
+import emptyImage from "../../images/no-image.png";
+import { useDispatch } from "react-redux";
+import { setMovieDescription } from "../../store/movieActions/actions";
 
 const ItemImage = (props) => {
   const [showModel, setShowModel] = useState(false);
   const [showModelWindowWrapper, setShowModelWindowWrapper] = useState(false);
   const [onEdit, setOnEdit] = useState(false);
   const [onDelete, setOnDelete] = useState(false);
+
+  const { editItem } = props;
 
   //TODO: rewrite the open/close functionality
   const toggleModal = (type) => {
@@ -33,13 +32,25 @@ const ItemImage = (props) => {
   function handleClickCLose() {
     setShowModel(!showModel);
   }
+  const handleMovieDescription = useCallback(() => {
+    dispatch(setMovieDescription(props.movie));
+    editItem();
+  });
+  const dispatch = useDispatch();
   return (
-    <div className={classes.ItemWrapper}>
+    <div
+      className={classes.ItemWrapper}
+      onMouseLeave={() => setShowModel(false)}
+    >
       <div className={classes.ImageWrapper}>
         <img
-          src={props.movie.poster_path}
+          src={props.movie.poster_path || emptyImage}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = emptyImage;
+          }}
           className={classes.ItemImage}
-          onClick={props.editItem}
+          onClick={handleMovieDescription}
         />
         <MovieButton CloseWindow={handleClickCLose} />
         {showModel && (
@@ -89,4 +100,4 @@ ItemImage.propTypes = {
   movie: PropTypes.object.isRequired,
 };
 
-export default ItemImage;
+export default React.memo(ItemImage);

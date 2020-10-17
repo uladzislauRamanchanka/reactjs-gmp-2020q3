@@ -6,10 +6,14 @@ const initialState = {
   error: "",
   data: [],
   amount: "",
-  filter: {
-    sortBy: "",
-    filterBy: "",
+  searchParams: {
+    sortType: "release_date",
+    sortOrder: "desc",
+    activeGenre: "",
+    searchString: "",
+    limit: 18,
   },
+  currentMovieDescription: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -42,6 +46,43 @@ const reducer = (state = initialState, action) => {
       };
     case actions.MOVIE_DELETE:
     case action.MOVIE_CREATE:
+    case actions.MOVIE_DESCRIPTION:
+      return {
+        ...state,
+        currentMovieDescription: action.payload,
+      };
+    case actions.MOVIE_GENRE:
+      return {
+        ...state,
+        searchParams: {
+          ...state.searchParams,
+          activeGenre: action.payload !== "ALL" ? action.payload : "",
+        },
+      };
+    case actions.MOVIE_SORT_BY:
+      return {
+        ...state,
+        searchParams: {
+          ...state.searchParams,
+          sortType: action.payload,
+        },
+      };
+    case actions.MOVIE_ASC_DESC:
+      return {
+        ...state,
+        searchParams: {
+          ...state.searchParams,
+          sortOrder: action.payload ? "asc" : "desc",
+        },
+      };
+    case actions.MOVIE_SEARCH_BY_TITLE:
+      return {
+        ...state,
+        searchParams: {
+          ...state.searchParams,
+          searchString: action.payload,
+        },
+      };
     default:
       return state;
   }

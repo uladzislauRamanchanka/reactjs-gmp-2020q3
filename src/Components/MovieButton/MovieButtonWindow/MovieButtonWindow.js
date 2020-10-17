@@ -14,6 +14,7 @@ const Wrapper = styled.div`
   top: 5px;
   z-index: 1;
   &:hover {
+    opacity: 1
   }
 `;
 
