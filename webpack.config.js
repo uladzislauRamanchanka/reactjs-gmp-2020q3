@@ -48,6 +48,7 @@ module.exports = {
         main: ['@babel/polyfill','./index.js']
     },
     output: {
+        publicPath: '/',
         path: path.join(__dirname, "dist"),
         filename: "bundle.js"
       },
@@ -56,6 +57,7 @@ module.exports = {
       },
       optimization: optimization(),
       devServer: {
+        historyApiFallback: true,
         port: 4001,
         hot: isDev
     },

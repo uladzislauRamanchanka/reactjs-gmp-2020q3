@@ -1,25 +1,37 @@
 import React, { useState, useCallback } from "react";
-import HeaderMainContainer from "./Containers/HeaderMainContainer/HeaderMainContainer";
-import MainContent from "./Containers/MainContent/MainContent";
-import Footer from "./Containers/Footer/Footer";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
-import MovieDetailsContainer from "./Containers/MovieDetailsContainer/MovieDetailsContainer";
 import { Provider } from "react-redux";
 import store from "./store";
+import Home from "./Pages/Home";
+import SearchPage from "./Pages/SearchPage";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import PageNotFound from "./Pages/PageNotFound";
+import FilmDescription from './Pages/FilmDescription'
 
 function App() {
-  const [editItem, setEditItem] = useState(false);
   return (
     <>
       <ErrorBoundary>
         <Provider store={store}>
-          {editItem ? (
+          <Router>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route exact path="/search" component={SearchPage} />
+              <Route exact path="/film/:id" component={FilmDescription} />
+              <Route path="*" component={PageNotFound} />
+            </Switch>
+            {/* {editItem ? (
             <MovieDetailsContainer returnBack={() => setEditItem(false)} />
           ) : (
             <HeaderMainContainer />
           )}
           <MainContent editItem={() => setEditItem(true)} />
-          <Footer />
+          <Footer /> */}
+          </Router>
         </Provider>
       </ErrorBoundary>
     </>

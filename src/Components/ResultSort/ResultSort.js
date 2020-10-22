@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { sortBy } from "../../constants/const";
 import { sortByValue, sortByOrder } from "../../store/movieActions/actions";
 import { useDispatch } from "react-redux";
-
 const Select = styled.select`
   font-size: 17px;
   color: #fff;
@@ -24,15 +23,15 @@ const Select = styled.select`
 const ResultSort = (props) => {
   const [asc, setAsc] = useState(false);
   const [value, setValue] = useState("release_date");
-
   const arrowStyles = [classes.arrow];
   if (asc) arrowStyles.push(classes.up);
   else arrowStyles.push(classes.down);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const handleArrow = () => {
+    setAsc(!asc)
     dispatch(sortByOrder(asc));
-  }, [asc]);
+  }
   return (
     <>
       <div className={classes.Sort}>SORT BY:</div>
@@ -53,7 +52,7 @@ const ResultSort = (props) => {
       <div className={classes.arrowWrap}>
         <div
           className={arrowStyles.join(" ")}
-          onClick={() => setAsc(!asc)}
+          onClick={handleArrow}
         ></div>
       </div>
     </>

@@ -9,7 +9,7 @@ const HeaderUp = (props) => {
     <div className={classes.headerUp}>
       <NetflixRoulette />
       {props.returnButton ? (
-        <ReturnButton returnBack={props.returnBack} />
+        <ReturnButton />
       ) : (
         <AddMovieButton />
       )}

@@ -1,5 +1,4 @@
 import * as actions from "./actionTypes";
-
 const initialState = {
   isLoading: false,
   isLoaded: false,

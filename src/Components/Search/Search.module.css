@@ -2,8 +2,9 @@
     display: flex;
 }
 
+
 .inputSearch {
-    width: 500px;
+    width: 70%;
     border-radius: 5px;
     padding: 5px;
     background-color:#424242;

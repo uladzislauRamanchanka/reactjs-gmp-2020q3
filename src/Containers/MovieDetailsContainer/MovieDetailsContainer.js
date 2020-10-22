@@ -9,7 +9,7 @@ const Container = styled.div`
 const MovieDetailsContainer = (props) => {
   return (
     <Container tabindex="-1">
-      <HeaderUp returnButton returnBack={props.returnBack}></HeaderUp>
+      <HeaderUp returnButton></HeaderUp>
       <MovieDetailsContent></MovieDetailsContent>
     </Container>
   );

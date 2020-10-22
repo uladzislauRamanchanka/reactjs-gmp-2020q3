@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import emptyImage from "../../images/no-image.png";
+import { Redirect } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -55,11 +56,13 @@ const Description = styled.div`
 `;
 const MovieDetailsContent = (props) => {
   const movie = useSelector((state) => state.movie.currentMovieDescription);
+  const isEmpty = Object.entries(movie).length === 0;
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [movie]);
   return (
     <Wrapper>
+      {isEmpty ? <Redirect to="/" /> : null}
       <Image
         src={movie.poster_path || emptyImage}
         onError={(e) => {
@@ -74,7 +77,7 @@ const MovieDetailsContent = (props) => {
         </NameWrapper>
         <ShortDescription>{movie.tagline || "Empty tagline"}</ShortDescription>
         <DurationReleaseWrapper>
-          <div>{movie.release_date.slice(0, 4)}</div>
+          <div>{new Date(movie.release_date).getFullYear() || "default"}</div>
           <div>{movie.runtime || 0} min</div>
         </DurationReleaseWrapper>
         <Description>{movie.overview}</Description>

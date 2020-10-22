@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import searchButton from "../../images/searchButton.svg";
+import { useSelector } from "react-redux";
+import { useHistory, useLocation } from 'react-router-dom'
+import { formLink } from "../../store/utils";
 
 const SearchButton = styled.img`
   height: 20px;
@@ -11,11 +14,21 @@ const SearchButton = styled.img`
 `;
 
 const ReturnButton = (props) => {
+  const searchParams = useSelector((state) => state.movie.searchParams)
+  const query = formLink(searchParams)
+  const history = useHistory()
+  const location = useLocation()
+  const handleClick = () => {
+    history.push({
+      pathname: '/search',
+      search: `${query}`
+    })
+  }
   return (
     <>
       <SearchButton
         src={searchButton}
-        onClick={props.returnBack}
+        onClick={handleClick}
       ></SearchButton>
     </>
   );

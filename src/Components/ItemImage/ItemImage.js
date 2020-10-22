@@ -12,6 +12,7 @@ import ItemWindowOnDelete from "./ItemWindow/ItemWindowOnDelete";
 import emptyImage from "../../images/no-image.png";
 import { useDispatch } from "react-redux";
 import { setMovieDescription } from "../../store/movieActions/actions";
+import { Link } from 'react-router-dom'
 
 const ItemImage = (props) => {
   const [showModel, setShowModel] = useState(false);
@@ -34,7 +35,7 @@ const ItemImage = (props) => {
   }
   const handleMovieDescription = useCallback(() => {
     dispatch(setMovieDescription(props.movie));
-    editItem();
+    //editItem();
   });
   const dispatch = useDispatch();
   return (
@@ -43,6 +44,7 @@ const ItemImage = (props) => {
       onMouseLeave={() => setShowModel(false)}
     >
       <div className={classes.ImageWrapper}>
+        <Link to={`/film/${props.movie.id}`}>
         <img
           src={props.movie.poster_path || emptyImage}
           onError={(e) => {
@@ -52,6 +54,7 @@ const ItemImage = (props) => {
           className={classes.ItemImage}
           onClick={handleMovieDescription}
         />
+        </Link>
         <MovieButton CloseWindow={handleClickCLose} />
         {showModel && (
           <MovieButtonWindow
