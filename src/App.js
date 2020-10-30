@@ -13,6 +13,7 @@ import PageNotFound from "./Pages/PageNotFound";
 import FilmDescription from './Pages/FilmDescription'
 
 function App() {
+  
   return (
     <>
       <ErrorBoundary>

@@ -1,5 +1,5 @@
 import * as actions from "./actionTypes";
-const initialState = {
+export const initialState = {
   isLoading: false,
   isLoaded: false,
   error: "",

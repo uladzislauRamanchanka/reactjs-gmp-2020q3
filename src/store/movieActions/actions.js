@@ -99,6 +99,7 @@ export const updateMovie = (movie) => async (dispatch, getState) => {
     const {
       movie: { searchParams },
     } = getState();
+
     dispatch(fetchMovies(searchParams));
   } catch (error) {
     dispatch(moviesFetchedError(error.message));
@@ -107,11 +108,11 @@ export const updateMovie = (movie) => async (dispatch, getState) => {
 
 export const deleteMovie = (movieToDelete) => async (dispatch, getState) => {
   try {
+    await axios.delete(`${url}/${movieToDelete.id}`);
+    dispatch(deleteMovieAction(movieToDelete));
     const {
       movie: { searchParams },
     } = getState();
-    await axios.delete(`${url}/${movieToDelete.id}`);
-    dispatch(deleteMovieAction(movieToDelete));
     dispatch(fetchMovies(searchParams));
   } catch (error) {
     dispatch(moviesFetchedError(error.message));
@@ -120,13 +121,15 @@ export const deleteMovie = (movieToDelete) => async (dispatch, getState) => {
 
 export const createMovie = (movie) => async (dispatch, getState) => {
   try {
+    await axios.post(url, movie);
+    dispatch(createMovieAction(movie));
     const {
       movie: { searchParams },
     } = getState();
-    await axios.post(url, movie);
-    dispatch(createMovieAction(movie));
     dispatch(fetchMovies(searchParams));
-  } catch (error) {}
+  } catch (error) {
+    dispatch(moviesFetchedError(error.message));
+  }
 };
 
 // this part is gonna be refactored in one function
